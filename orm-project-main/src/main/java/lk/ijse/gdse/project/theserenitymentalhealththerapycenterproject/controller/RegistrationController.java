@@ -121,8 +121,8 @@ public class RegistrationController implements Initializable {
     }
 
     @FXML
-    void btnResetOnAction(ActionEvent event) {
-
+    void btnResetOnAction(ActionEvent event) throws Exception {
+        refreshPage();
     }
 
     @FXML
@@ -136,7 +136,6 @@ public class RegistrationController implements Initializable {
                 );
         if (registrationBo.save(registrationDto)) {
             showSuccessAlert("Registration Successfully.");
-//            loadTable();
             refreshPage();
         } else {
             showErrorAlert("Registration failed.");
@@ -154,7 +153,6 @@ public class RegistrationController implements Initializable {
         );
         if (registrationBo.update(registrationDto)) {
             showSuccessAlert("Session Update.");
-//            loadTable();
             refreshPage();
         } else {
             showErrorAlert("update failed.");
@@ -249,9 +247,23 @@ public class RegistrationController implements Initializable {
     private void refreshPage() throws Exception {
         loadTable();
         setNextId();
-//        loadComboData();
-//        clearFields();
+        clearFields();
     }
+
+    private void clearFields() {
+        txtReId.clear();
+        datePicker.getValue();
+        lblProgramFees.setText("");
+        lblProgramName.setText("");
+        lblPatientName.setText("");
+        cmbPatient.getValue();
+        cmbProgram.getValue();
+
+        btnSave.setDisable(false);
+        btnDelete.setDisable(true);
+        btnUpdate.setDisable(true);
+    }
+
 
     private void loadTable(){
         List<RegistrationDto> list = registrationBo.getAll();
@@ -261,8 +273,8 @@ public class RegistrationController implements Initializable {
                     registrationDto.getRegistrationId(),
                     registrationDto.getRegistrationDate(),
                     registrationDto.getProgrammeFees(),
-                    registrationDto.getPatientId(),
-                    registrationDto.getProgrammeId()
+                    registrationDto.getProgrammeId(),
+                    registrationDto.getPatientId()
             ));
         }
         tblEnrollment.setItems(tmList);
@@ -270,10 +282,11 @@ public class RegistrationController implements Initializable {
 
     private void setCellValues() {
         colId.setCellValueFactory(new PropertyValueFactory<>("registrationId"));
-        colDate.setCellValueFactory(new PropertyValueFactory<>("registrationDate"));
         colProgrammeFees.setCellValueFactory(new PropertyValueFactory<>("programmeFees"));
-        colPatient.setCellValueFactory(new PropertyValueFactory<>("programmeId"));
-        colDate.setCellValueFactory(new PropertyValueFactory<>("patientId"));
+        colDate.setCellValueFactory(new PropertyValueFactory<>("registrationDate"));
+        colPatient.setCellValueFactory(new PropertyValueFactory<>("patientId"));
+        colProgrammeId.setCellValueFactory(new PropertyValueFactory<>("programmeId")); // <- add this
+
     }
 
 }

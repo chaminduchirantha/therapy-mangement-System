@@ -1,17 +1,12 @@
 package lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.impl;
 
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.RegistrationBo;
-import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.config.FactoryConfiguration;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dao.DAOFactory;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dao.custom.impl.RegistrationDAOImpl;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.RegistrationDto;
-import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.TherapyProgramDTO;
+import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.entity.Patient;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.entity.Registration;
-import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.entity.Therapist;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.entity.TherapyProgram;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -24,12 +19,19 @@ public class RegistrationBoImpl implements RegistrationBo {
 
     @Override
     public boolean save(RegistrationDto registrationDto) {
+        Patient patient = new Patient();
+        patient.setPatientId(registrationDto.getPatientId());
+
+        TherapyProgram program = new TherapyProgram();
+        program.setProgramId(registrationDto.getProgrammeId());
+
+        // Now create Registration with those entities
         Registration registration = new Registration(
                 registrationDto.getRegistrationId(),
                 registrationDto.getRegistrationDate(),
                 registrationDto.getProgrammeFees(),
-                null,
-                null
+                patient,
+                program
         );
 
         return registrationDAO.save(registration);
@@ -37,12 +39,18 @@ public class RegistrationBoImpl implements RegistrationBo {
 
     @Override
     public boolean update(RegistrationDto registrationDto) {
+        Patient patient = new Patient();
+        patient.setPatientId(registrationDto.getPatientId());
+
+        TherapyProgram program = new TherapyProgram();
+        program.setProgramId(registrationDto.getProgrammeId());
+
         Registration registration = new Registration(
                 registrationDto.getRegistrationId(),
                 registrationDto.getRegistrationDate(),
                 registrationDto.getProgrammeFees(),
-                null,
-                null
+                patient,
+                program
         );
 
         return registrationDAO.update(registration);
@@ -55,7 +63,6 @@ public class RegistrationBoImpl implements RegistrationBo {
 
     @Override
     public Optional<Registration> findById(String s) {
-
         return Optional.empty();
     }
 
@@ -71,19 +78,17 @@ public class RegistrationBoImpl implements RegistrationBo {
             registrationDto.setRegistrationDate(registration.getRegistrationDate());
             registrationDto.setProgrammeFees(registration.getProgrammeFees());
 
-            // Check if patient is not null
             if (registration.getPatient() != null) {
                 registrationDto.setPatientId(registration.getPatient().getPatientId());
             } else {
-                registrationDto.setPatientId(null); // or handle accordingly
+                registrationDto.setPatientId(null);
                 System.err.println("Warning: Patient is null for registration ID " + registration.getRegistrationId());
             }
 
-            // Check if therapy program is not null
             if (registration.getTherapyPrograms() != null) {
                 registrationDto.setProgrammeId(registration.getTherapyPrograms().getProgramId());
             } else {
-                registrationDto.setProgrammeId(null); // or handle accordingly
+                registrationDto.setProgrammeId(null);
                 System.err.println("Warning: TherapyProgram is null for registration ID " + registration.getRegistrationId());
             }
 
@@ -92,11 +97,8 @@ public class RegistrationBoImpl implements RegistrationBo {
         return registrationDtos;
     }
 
-
     @Override
     public String getNextId() throws SQLException, IOException {
        return registrationDAO.getNextId();
     }
-
-
 }
