@@ -12,11 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.BOFactory;
-import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.BOTypes;
-import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.PatientBO;
-import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.TherapistBO;
-import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.TherapyProgramBO;
-import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.TherapySessionBO;
+import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.*;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.*;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.tm.TherapySessionTM;
 
@@ -27,11 +23,6 @@ import java.util.ResourceBundle;
 
 public class TherapySessionController implements Initializable {
 
-    TherapySessionBO sessionBO = BOFactory.getInstance().getBO(BOTypes.SESSION);
-    PatientBO patientBO = BOFactory.getInstance().getBO(BOTypes.PATIENT);
-    TherapistBO therapistBO = BOFactory.getInstance().getBO(BOTypes.THERAPIST);
-    TherapyProgramBO programBO = BOFactory.getInstance().getBO(BOTypes.PROGRAM);
-
     @FXML private Button btnDelete, btnReset, btnSave, btnUpdate;
     @FXML private ComboBox<String> cmbPatient, cmbTherapist, cmbProgram;
     @FXML private DatePicker datePicker;
@@ -41,6 +32,11 @@ public class TherapySessionController implements Initializable {
     @FXML private TableView<TherapySessionTM> tblSession;
     @FXML private TableColumn<TherapySessionTM, String> colId, colPatient, colTherapist, colProgram;
     @FXML private TableColumn<TherapySessionTM, Date> colDate;
+
+    TherapySessionBO sessionBO = (TherapySessionBO) BOFactory.getInstance().getBo(BOFactory.boType.THERAPYSESSION);
+    PatientBO patientBO = (PatientBO) BOFactory.getInstance().getBo(BOFactory.boType.PATIENT);
+    TherapyProgramBO therapyProgramBO = (TherapyProgramBO) BOFactory.getInstance().getBo(BOFactory.boType.THERAPYPROGRAMME);
+    TherapistBO therapistBO = (TherapistBO) BOFactory.getInstance().getBo(BOFactory.boType.THERAPIST);
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -131,7 +127,7 @@ public class TherapySessionController implements Initializable {
     void cmbProgramOnAction(ActionEvent event) {
         if (cmbProgram.getValue() == null) return;
 
-        TherapyProgramDTO dto = programBO.getProgramById(cmbProgram.getValue());
+        TherapyProgramDTO dto = therapyProgramBO.getProgramById(cmbProgram.getValue());
         lblProgramName.setText(dto != null ? dto.getName() : "Unknown");
     }
 
@@ -199,7 +195,7 @@ public class TherapySessionController implements Initializable {
                 patientBO.getPatients().stream().map(PatientDTO::getPatientId).toList()
         ));
         cmbProgram.setItems(FXCollections.observableArrayList(
-                programBO.getPrograms().stream().map(TherapyProgramDTO::getProgramId).toList()
+                therapyProgramBO.getPrograms().stream().map(TherapyProgramDTO::getProgramId).toList()
         ));
         cmbTherapist.setItems(FXCollections.observableArrayList(
                 therapistBO.getTherapists().stream().map(TherapistDTO::getTherapistId).toList()

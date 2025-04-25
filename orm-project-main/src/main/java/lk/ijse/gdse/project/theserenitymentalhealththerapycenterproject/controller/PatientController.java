@@ -12,7 +12,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.BOFactory;
-import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.BOTypes;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.PatientBO;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.PatientDTO;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.tm.PatientTM;
@@ -72,7 +71,7 @@ public class PatientController implements Initializable {
     @FXML
     private TextField txtPhone;
 
-    private PatientBO patientBO = BOFactory.getInstance().getBO(BOTypes.PATIENT);
+    private PatientBO patientBO = (PatientBO) BOFactory.getInstance().getBo(BOFactory.boType.PATIENT);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

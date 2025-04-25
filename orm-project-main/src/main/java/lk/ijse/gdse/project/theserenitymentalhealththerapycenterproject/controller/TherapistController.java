@@ -12,7 +12,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.BOFactory;
-import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.BOTypes;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.TherapistBO;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.TherapistDTO;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.tm.TherapistTM;
@@ -67,7 +66,7 @@ public class TherapistController implements Initializable {
     @FXML
     private TextField txtSpecialization;
 
-    TherapistBO therapistBO = BOFactory.getInstance().getBO(BOTypes.THERAPIST);
+    TherapistBO therapistBO = (TherapistBO) BOFactory.getInstance().getBo(BOFactory.boType.THERAPIST);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

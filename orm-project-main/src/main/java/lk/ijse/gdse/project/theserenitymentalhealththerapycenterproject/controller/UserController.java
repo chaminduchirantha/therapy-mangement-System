@@ -12,12 +12,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.BOFactory;
-import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.BOTypes;
-import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.TherapyProgramBO;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.UserBO;
-import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.TherapistDTO;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.UserDTO;
-import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.tm.TherapistTM;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.tm.UserTM;
 
 import java.net.URL;
@@ -26,7 +22,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class UserController implements Initializable {
-    UserBO userBO = (UserBO) BOFactory.getInstance().getBO(BOTypes.USER);
 
 
     @FXML
@@ -70,6 +65,9 @@ public class UserController implements Initializable {
 
     @FXML
     private TextField txtRole;
+
+    UserBO userBO = (UserBO) BOFactory.getInstance().getBo(BOFactory.boType.USER);
+
 
 
     @FXML

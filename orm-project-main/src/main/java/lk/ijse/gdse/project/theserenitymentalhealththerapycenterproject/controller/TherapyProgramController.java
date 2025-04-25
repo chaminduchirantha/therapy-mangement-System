@@ -12,22 +12,17 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.BOFactory;
-import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.BOTypes;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.TherapistBO;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.TherapyProgramBO;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.TherapistDTO;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.TherapyProgramDTO;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.tm.TherapyProgramTM;
 
-import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.*;
 
 public class TherapyProgramController implements Initializable {
 
-    TherapyProgramBO therapyProgramBO = BOFactory.getInstance().getBO(BOTypes.PROGRAM);
-    TherapistBO therapistBO = BOFactory.getInstance().getBO(BOTypes.THERAPIST);
 
     @FXML
     private Button btnDelete, btnReset, btnSave, btnUpdate;
@@ -55,6 +50,11 @@ public class TherapyProgramController implements Initializable {
 
     @FXML
     private TextField txtDuration, txtFee, txtName;
+
+    TherapyProgramBO therapyProgramBO = (TherapyProgramBO) BOFactory.getInstance().getBo(BOFactory.boType.THERAPYPROGRAMME);
+    TherapistBO therapistBO = (TherapistBO) BOFactory.getInstance().getBo(BOFactory.boType.THERAPIST);
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

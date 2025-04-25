@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.BOFactory;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.PatientBO;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.RegistrationBo;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.TherapyProgramBO;
@@ -28,9 +29,7 @@ import java.util.ResourceBundle;
 
 public class RegistrationController implements Initializable {
 
-    PatientBO patientBO = new PatientBOImpl();
-    TherapyProgramBO therapyProgramBO = new TherapyProgramBOImpl();
-    RegistrationBo registrationBo = new RegistrationBoImpl();
+
 
 
     @FXML
@@ -86,6 +85,10 @@ public class RegistrationController implements Initializable {
 
     @FXML
     private AnchorPane registrationAnchorpane;
+
+    PatientBO patientBO = (PatientBO) BOFactory.getInstance().getBo(BOFactory.boType.PATIENT);
+    TherapyProgramBO therapyProgramBO = (TherapyProgramBO) BOFactory.getInstance().getBo(BOFactory.boType.THERAPYPROGRAMME);
+    RegistrationBo registrationBo = (RegistrationBo) BOFactory.getInstance().getBo(BOFactory.boType.REGISTRATION);
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
