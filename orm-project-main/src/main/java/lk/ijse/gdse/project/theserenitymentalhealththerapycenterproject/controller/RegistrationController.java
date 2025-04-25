@@ -22,9 +22,13 @@ import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.Pati
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.RegistrationDto;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.TherapyProgramDTO;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.tm.RegistrationTm;
+import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.tm.TherapistTM;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class RegistrationController implements Initializable {
@@ -68,8 +72,10 @@ public class RegistrationController implements Initializable {
     @FXML
     private DatePicker datePicker;
 
+
     @FXML
-    private Label lblId;
+    private TextField txtReId;
+
 
     @FXML
     private Label lblPatientName;
@@ -92,7 +98,26 @@ public class RegistrationController implements Initializable {
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
+//        if (!validateInputs()) return;
 
+        try {
+            String id = txtReId.getText();
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this therapist?", ButtonType.YES, ButtonType.NO);
+            Optional<ButtonType> buttonType = alert.showAndWait();
+            if (buttonType.get() == ButtonType.YES) {
+                boolean isDeleted = registrationBo.delete(id);
+                if (isDeleted) {
+                    showSuccessAlert("Registration deleted successfully.");
+                    refreshPage();
+                } else {
+                    showErrorAlert("Failed to delete registration.");
+                }
+            }
+
+        } catch (Exception e) {
+            showErrorAlert(e.getMessage());
+        }
     }
 
     @FXML
@@ -103,24 +128,37 @@ public class RegistrationController implements Initializable {
     @FXML
     void btnSaveOnAction(ActionEvent event) throws Exception {
         RegistrationDto registrationDto = new RegistrationDto(
-                lblId.getText(),
+                txtReId.getText(),
                 datePicker.getValue(),
                 Double.parseDouble(lblProgramFees.getText()),
                 cmbProgram.getValue(),
                 cmbPatient.getValue()
                 );
         if (registrationBo.save(registrationDto)) {
-            showSuccessAlert("Session saved.");
+            showSuccessAlert("Registration Successfully.");
 //            loadTable();
             refreshPage();
         } else {
-            showErrorAlert("Save failed.");
+            showErrorAlert("Registration failed.");
         }
     }
 
     @FXML
-    void btnUpdateOnAction(ActionEvent event) {
-
+    void btnUpdateOnAction(ActionEvent event) throws Exception {
+        RegistrationDto registrationDto = new RegistrationDto(
+                txtReId.getText(),
+                datePicker.getValue(),
+                Double.parseDouble(lblProgramFees.getText()),
+                cmbProgram.getValue(),
+                cmbPatient.getValue()
+        );
+        if (registrationBo.update(registrationDto)) {
+            showSuccessAlert("Session Update.");
+//            loadTable();
+            refreshPage();
+        } else {
+            showErrorAlert("update failed.");
+        }
     }
 
     @FXML
@@ -141,7 +179,18 @@ public class RegistrationController implements Initializable {
 
     @FXML
     void onClickTable(MouseEvent event) {
+        RegistrationTm selected = tblEnrollment.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            txtReId.setText(selected.getRegistrationId());
+            datePicker.setValue(selected.getRegistrationDate());
+            lblProgramFees.setText(String.valueOf(selected.getProgrammeFees()));
+            cmbPatient.setValue(selected.getPatientId());
+            cmbProgram.setValue(selected.getProgrammeId());
 
+            btnSave.setDisable(true);
+            btnDelete.setDisable(false);
+            btnUpdate.setDisable(false);
+        }
     }
 
     private void loadComboData() throws Exception {
@@ -177,9 +226,9 @@ public class RegistrationController implements Initializable {
         }
     }
 
-    private void setNextId() {
-        String nextId = registrationBo.getNextRegistrationId();
-        lblId.setText(nextId);
+    private void setNextId() throws SQLException, IOException {
+        String nextId = registrationBo.getNextId();
+        txtReId.setText(nextId);
     }
 
     private void showSuccessAlert(String message) {

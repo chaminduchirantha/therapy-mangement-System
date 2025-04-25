@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -38,11 +39,6 @@
                         <Font name="Calibri Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblId" layoutX="126.0" layoutY="15.0" prefHeight="38.0" prefWidth="150.0" style="-fx-text-fill: #0277BD; -fx-font-weight: bold;" text="E001">
-                     <font>
-                        <Font name="Arial" size="18.0" />
-                     </font>
-                  </Label>
 
                   <Label layoutX="26.0" layoutY="80.0" prefHeight="38.0" prefWidth="75.0" style="-fx-text-fill: #37474F;" text="Date:">
                      <font>
@@ -68,6 +64,11 @@
                         <Font name="Calibri Bold" size="16.0" />
                      </font>
                   </Label>
+                  <TextField fx:id="txtReId" layoutX="128.0" layoutY="19.0" prefHeight="38.0" prefWidth="98.0" promptText="E001" style="-fx-background-radius: 255px; -fx-border-color: #3498db; -fx-border-radius: 25px; -fx-background-color: fff;">
+                     <font>
+                        <Font name="Calibri" size="16.0" />
+                     </font>
+                  </TextField>
                </children>
             </Pane>
 

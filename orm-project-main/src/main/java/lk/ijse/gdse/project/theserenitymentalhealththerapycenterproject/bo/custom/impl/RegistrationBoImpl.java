@@ -1,6 +1,7 @@
 package lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.impl;
 
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.RegistrationBo;
+import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.config.FactoryConfiguration;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dao.DAOFactory;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dao.custom.impl.RegistrationDAOImpl;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.RegistrationDto;
@@ -12,6 +13,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +45,7 @@ public class RegistrationBoImpl implements RegistrationBo {
                 null
         );
 
-        return registrationDAO.save(registration);
+        return registrationDAO.update(registration);
     }
 
     @Override
@@ -67,21 +70,33 @@ public class RegistrationBoImpl implements RegistrationBo {
             registrationDto.setRegistrationId(registration.getRegistrationId());
             registrationDto.setRegistrationDate(registration.getRegistrationDate());
             registrationDto.setProgrammeFees(registration.getProgrammeFees());
-            registrationDto.setPatientId(registration.getPatient().getPatientId());
-            registrationDto.setProgrammeId(registration.getTherapyPrograms().getProgramId());
+
+            // Check if patient is not null
+            if (registration.getPatient() != null) {
+                registrationDto.setPatientId(registration.getPatient().getPatientId());
+            } else {
+                registrationDto.setPatientId(null); // or handle accordingly
+                System.err.println("Warning: Patient is null for registration ID " + registration.getRegistrationId());
+            }
+
+            // Check if therapy program is not null
+            if (registration.getTherapyPrograms() != null) {
+                registrationDto.setProgrammeId(registration.getTherapyPrograms().getProgramId());
+            } else {
+                registrationDto.setProgrammeId(null); // or handle accordingly
+                System.err.println("Warning: TherapyProgram is null for registration ID " + registration.getRegistrationId());
+            }
+
             registrationDtos.add(registrationDto);
         }
         return registrationDtos;
     }
 
+
     @Override
-    public String getNextRegistrationId() {
-        Optional<String> lastId = registrationDAO.getLastId();
-        if (lastId.isPresent() && lastId.get().matches("E\\d{3}")) {
-            int numeric = Integer.parseInt(lastId.get().substring(1));
-            return String.format("E%03d", numeric + 1);
-        }
-        return "E001";
+    public String getNextId() throws SQLException, IOException {
+       return registrationDAO.getNextId();
     }
+
 
 }

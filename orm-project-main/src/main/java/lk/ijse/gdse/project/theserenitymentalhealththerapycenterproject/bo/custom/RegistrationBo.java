@@ -4,6 +4,8 @@ import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.Super
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.RegistrationDto;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.entity.Registration;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +14,6 @@ public interface RegistrationBo extends SuperBO {
     public boolean update(RegistrationDto registrationDto) ;
     public boolean delete(String s) ;
     public Optional<Registration> findById(String s) ;
-    public String getNextRegistrationId() ;
+    public String getNextId() throws SQLException, IOException ;
     public List<RegistrationDto> getAll() ;
 }
