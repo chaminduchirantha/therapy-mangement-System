@@ -1,7 +1,7 @@
 package lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dao.custom.impl;
 
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.config.FactoryConfiguration;
-import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dao.custom.EnrollmentDAO;
+import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dao.custom.RegistrationDao;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -9,7 +9,7 @@ import org.hibernate.query.Query;
 import java.util.List;
 import java.util.Optional;
 
-public class RegistrationDAOImpl implements EnrollmentDAO {
+public class RegistrationDAOImpl implements RegistrationDao {
     private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
 
     @Override
