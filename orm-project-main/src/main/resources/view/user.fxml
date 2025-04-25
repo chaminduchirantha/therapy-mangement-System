@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="userAnchorapne" prefHeight="720.0" prefWidth="985.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.controller.UserController">
+   <children>
+      <!-- Background gradient for entire screen -->
+      <Rectangle height="720.0" width="985.0">
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0" startX="0.0" startY="0.0">
+               <stops>
+                  <Stop color="#e6f7ff" />
+                  <Stop color="#b3e0ff" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+
+      <!-- Main content panel -->
+      <AnchorPane layoutX="47.0" layoutY="41.0" prefHeight="639.0" prefWidth="891.0" style="-fx-background-color: white; -fx-background-radius: 15px; -fx-opacity: 20;">
+         <effect>
+            <DropShadow color="#00000040" radius="10" spread="0.05" />
+         </effect>
+         <children>
+
+            <TableView fx:id="tblUser" layoutX="39.0" layoutY="374.0" onMouseClicked="#onClickTable" prefHeight="236.0" prefWidth="814.0" style="-fx-background-radius: 5px; -fx-border-color: #dee2e6; -fx-border-radius: 5px;">
+               <columns>
+                  <TableColumn fx:id="colId" prefWidth="200.0" text="ID" />
+                  <TableColumn fx:id="colName" prefWidth="200.0" text="Name" />
+                  <TableColumn fx:id="colPassword" prefWidth="200.0" text="Password" />
+                  <TableColumn fx:id="colRole" prefWidth="200.0" text="Role" />
+               </columns>
+            </TableView>
+
+            <Label alignment="CENTER" prefHeight="62.0" prefWidth="891.0" text="User Management" textFill="#2e2c2c">
+               <font>
+                  <Font name="Arial Bold" size="23.0" />
+               </font>
+               <effect>
+                  <DropShadow color="#00000066" radius="2" spread="0.0" />
+               </effect>
+            </Label>
+
+            <!-- Form Section -->
+            <Label layoutX="39.0" layoutY="134.0" prefHeight="38.0" prefWidth="98.0" text="ID:">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+            </Label>
+
+            <Label fx:id="lblId" layoutX="137.0" layoutY="134.0" prefHeight="38.0" prefWidth="162.0" style="-fx-background-color: fff; -fx-background-radius: 5px; -fx-padding: 5px; -fx-border-color: #3498db; -fx-border-radius: 25px;" text="U001">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+            </Label>
+
+            <Label layoutX="471.0" layoutY="126.0" prefHeight="38.0" prefWidth="61.0" text="Name:">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+            </Label>
+
+            <TextField fx:id="txtName" layoutX="537.0" layoutY="126.0" prefHeight="38.0" prefWidth="291.0" promptText="Enter user name" style="-fx-background-radius: 5px; -fx-border-color: #3498db; -fx-border-radius: 25px; -fx-background-color: fff;">
+               <font>
+                  <Font name="Calibri" size="16.0" />
+               </font>
+            </TextField>
+
+            <Label layoutX="39.0" layoutY="210.0" prefHeight="38.0" prefWidth="98.0" text="Password:">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+            </Label>
+
+            <TextField fx:id="txtPasswordUser" layoutX="137.0" layoutY="210.0" prefHeight="38.0" prefWidth="291.0" promptText="Enter password" style="-fx-background-radius: 5px; -fx-border-color: #3498db; -fx-border-radius: 25px; -fx-background-color: fff;">
+               <font>
+                  <Font name="Calibri" size="16.0" />
+               </font>
+            </TextField>
+
+            <Label layoutX="470.0" layoutY="210.0" prefHeight="38.0" prefWidth="62.0" text="Role:">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+            </Label>
+
+            <TextField fx:id="txtRole" layoutX="537.0" layoutY="210.0" prefHeight="38.0" prefWidth="291.0" promptText="Enter user role" style="-fx-background-radius: 5px; -fx-border-color: #3498db; -fx-border-radius: 25px; -fx-background-color: fff;">
+               <font>
+                  <Font name="Calibri" size="16.0" />
+               </font>
+            </TextField>
+
+            <!-- Action Buttons -->
+            <Button fx:id="btnSave" layoutX="361.0" layoutY="307.0" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: green; -fx-background-radius: 28px; -fx-text-fill: white;" text="Save">
+               <font>
+                  <Font name="Calibri Bold" size="15.0" />
+               </font>
+               <effect>
+                  <DropShadow color="#00000040" radius="5" spread="0.0" />
+               </effect>
+            </Button>
+
+            <Button fx:id="btnUpdate" layoutX="482.0" layoutY="307.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: #3498db; -fx-background-radius: 18px; -fx-text-fill: white;" text="Update">
+               <font>
+                  <Font name="Calibri Bold" size="15.0" />
+               </font>
+               <effect>
+                  <DropShadow color="#00000040" radius="5" spread="0.0" />
+               </effect>
+            </Button>
+
+            <Button fx:id="btnDelete" layoutX="604.0" layoutY="307.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: #e74c3c; -fx-background-radius: 18px; -fx-text-fill: white;" text="Delete">
+               <font>
+                  <Font name="Calibri Bold" size="15.0" />
+               </font>
+               <effect>
+                  <DropShadow color="#00000040" radius="5" spread="0.0" />
+               </effect>
+            </Button>
+
+            <Button fx:id="btnReset" layoutX="727.0" layoutY="307.0" mnemonicParsing="false" onAction="#btnResetOnAction" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: #f39c12; -fx-background-radius: 18px; -fx-text-fill: white;" text="Reset">
+               <font>
+                  <Font name="Calibri Bold" size="15.0" />
+               </font>
+               <effect>
+                  <DropShadow color="#00000040" radius="5" spread="0.0" />
+               </effect>
+            </Button>
+
+            <!-- Table Section -->
+            <Label layoutX="39.0" layoutY="343.0" text="User Records">
+               <font>
+                  <Font name="Arial Bold" size="17.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="user" fitHeight="40.0" fitWidth="40.0" layoutX="291.0" layoutY="11.0" preserveRatio="true">
+               <image>
+                  <Image url="@../images/icons8-user-50.png" />
+               </image>
+            </ImageView>
+            <Line endX="780.2000122070312" endY="7.62939453125E-6" layoutX="103.0" layoutY="65.0" startX="-91.79999542236328" startY="7.62939453125E-6" strokeWidth="0.5" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
