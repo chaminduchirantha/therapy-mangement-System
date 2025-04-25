@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="programmeAnchorpane" prefHeight="720.0" prefWidth="985.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.controller.TherapyProgramController">
+   <children>
+      <Rectangle height="730.0" layoutX="-1.0" width="996.0">
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0" startX="0.0" startY="0.0">
+               <stops>
+                  <Stop color="#e3f2fd" />
+                  <Stop color="#bbdefb" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+
+      <!-- Main content panel -->
+      <AnchorPane layoutX="47.0" layoutY="41.0" prefHeight="639.0" prefWidth="891.0" style="-fx-background-color: white; -fx-background-radius: 25px;">
+         <effect>
+            <DropShadow color="#00000040" radius="10" spread="0.05" />
+         </effect>
+         <children>
+
+            <Label alignment="CENTER" prefHeight="57.0" prefWidth="891.0" text="Therapy Program">
+               <font>
+                  <Font name="Arial Bold" size="20.0" />
+               </font>
+               <effect>
+                  <DropShadow color="#00000066" radius="2" spread="0.0" />
+               </effect>
+            </Label>
+
+            <!-- Form Section with improved styling -->
+            <Label layoutX="39.0" layoutY="106.0" prefHeight="38.0" prefWidth="175.0" text="Therapy Programme Id" textFill="#0a0b0a">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+            </Label>
+
+            <Label fx:id="lblId" layoutX="204.0" layoutY="106.0" prefHeight="38.0" prefWidth="98.0" style="-fx-background-color: #f5f5f5; -fx-background-radius: 25px; -fx-padding: 5px; -fx-border-color: #3498db; -fx-border-radius: 25px;" text="TP001">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+            </Label>
+
+            <Label layoutX="399.0" layoutY="106.0" prefHeight="38.0" prefWidth="60.0" text="Name:" textFill="#0a0b0a">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+            </Label>
+
+            <TextField fx:id="txtName" layoutX="470.0" layoutY="107.0" prefHeight="38.0" prefWidth="394.0" style="-fx-background-radius: 25px; -fx-background-color: fff; -fx-border-radius: 25px; -fx-focus-color: #2e7d32; -fx-border-color: #3498db;">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+               <effect>
+                  <DropShadow color="#00000026" radius="3" spread="0.0" />
+               </effect>
+            </TextField>
+
+            <Label layoutX="39.0" layoutY="182.0" prefHeight="38.0" prefWidth="134.0" text="Duration (Weeks):" textFill="#0a0b0a">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+            </Label>
+
+            <TextField fx:id="txtDuration" layoutX="204.0" layoutY="180.0" prefHeight="38.0" prefWidth="194.0" style="-fx-background-radius: 25px; -fx-background-color: fff; -fx-border-radius: 25px; -fx-focus-color: #2e7d32; -fx-border-color: #3498db;">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+               <effect>
+                  <DropShadow color="#00000026" radius="3" spread="0.0" />
+               </effect>
+            </TextField>
+
+            <Label layoutX="420.0" layoutY="182.0" prefHeight="38.0" prefWidth="98.0" text="Fee (Rs):" textFill="#0a0b0a">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+            </Label>
+
+            <TextField fx:id="txtFee" layoutX="530.0" layoutY="180.0" prefHeight="38.0" prefWidth="322.0" style="-fx-background-radius: 25px; -fx-background-color: fff; -fx-border-radius: 25px; -fx-focus-color: #2e7d32; -fx-border-color: #3498db;">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+               <effect>
+                  <DropShadow color="#00000026" radius="3" spread="0.0" />
+               </effect>
+            </TextField>
+
+            <Label layoutX="39.0" layoutY="256.0" prefHeight="38.0" prefWidth="98.0" text="Therapist ID:" textFill="#0a0b0a">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+            </Label>
+
+            <ComboBox fx:id="cmbTherapist" layoutX="204.0" layoutY="256.0" onAction="#cmbTherapistOnAction" prefHeight="38.0" prefWidth="150.0" style="-fx-background-radius: 25px; -fx-background-color: fff; -fx-border-radius: 25px; -fx-border-color: #3498db;">
+               <effect>
+                  <DropShadow color="#00000026" radius="3" spread="0.0" />
+               </effect>
+            </ComboBox>
+
+            <Label layoutX="374.0" layoutY="256.0" prefHeight="38.0" prefWidth="60.0" text="Name:" textFill="#0a0b0a">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+            </Label>
+
+            <Label fx:id="lblTherapistName" layoutX="434.0" layoutY="256.0" prefHeight="38.0" prefWidth="207.0" style="-fx-background-color: ffff; -fx-background-radius: 5px; -fx-padding: 5px; -fx-border-radius: 5px;">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+            </Label>
+
+            <!-- Action Buttons -->
+            <Button fx:id="btnSave" layoutX="394.0" layoutY="336.0" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: green; -fx-background-radius: 25px; -fx-text-fill: white;" text="Save">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+               <effect>
+                  <DropShadow color="#00000040" radius="5" spread="0.0" />
+               </effect>
+            </Button>
+
+            <Button fx:id="btnUpdate" layoutX="508.0" layoutY="336.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: #3498db; -fx-background-radius: 25px; -fx-text-fill: white;" text="Update">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+               <effect>
+                  <DropShadow color="#00000040" radius="5" spread="0.0" />
+               </effect>
+            </Button>
+
+            <Button fx:id="btnDelete" layoutX="621.0" layoutY="336.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: #f44336; -fx-background-radius: 25px; -fx-text-fill: white;" text="Delete">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+               <effect>
+                  <DropShadow color="#00000040" radius="5" spread="0.0" />
+               </effect>
+            </Button>
+
+            <Button fx:id="btnReset" layoutX="733.0" layoutY="336.0" mnemonicParsing="false" onAction="#btnResetOnAction" prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: #ff6f00; -fx-background-radius: 25px; -fx-text-fill: white;" text="Reset">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+               <effect>
+                  <DropShadow color="#00000040" radius="5" spread="0.0" />
+               </effect>
+            </Button>
+
+            <!-- Table Section -->
+            <Label layoutX="39.0" layoutY="371.0" text="Program Records" textFill="#0a0b0a">
+               <font>
+                  <Font name="Arial Bold" size="17.0" />
+               </font>
+            </Label>
+
+            <TableView fx:id="tblProgram" layoutX="39.0" layoutY="410.0" onMouseClicked="#onClickTable" prefHeight="205.0" prefWidth="814.0" style="-fx-background-radius: 8px; -fx-border-color: #c8e6c9; -fx-border-radius: 8px;">
+               <columns>
+                  <TableColumn fx:id="colId" prefWidth="130.0" text="ID" />
+                  <TableColumn fx:id="colName" prefWidth="170.0" text="Name" />
+                  <TableColumn fx:id="colDuration" prefWidth="170.0" text="Duration (Weeks)" />
+                  <TableColumn fx:id="colFee" prefWidth="170.0" text="Fee (Rs)" />
+                  <TableColumn fx:id="colTherapist" prefWidth="170.0" text="Therapist" />
+               </columns>
+               <effect>
+                  <DropShadow color="#00000026" radius="5" spread="0.0" />
+               </effect>
+            </TableView>
+            <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="314.0" layoutY="9.0" preserveRatio="true">
+               <image>
+                  <Image url="@../images/icons8-test-results-50.png" />
+               </image>
+            </ImageView>
+            <Line endX="780.2000122070312" endY="7.62939453125E-6" layoutX="105.0" layoutY="65.0" startX="-91.79999542236328" startY="7.62939453125E-6" strokeWidth="0.5" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
