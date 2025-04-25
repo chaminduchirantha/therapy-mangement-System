@@ -1,6 +1,7 @@
 package lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.impl;
 
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.RegistrationBo;
+import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dao.DAOFactory;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dao.custom.impl.RegistrationDAOImpl;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.RegistrationDto;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.TherapyProgramDTO;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class RegistrationBoImpl implements RegistrationBo {
-    RegistrationDAOImpl registrationDAO = new RegistrationDAOImpl();
+    RegistrationDAOImpl registrationDAO = (RegistrationDAOImpl) DAOFactory.getInstance().getDao(DAOFactory.daoType.REGISTRATION);
 
     @Override
     public boolean save(RegistrationDto registrationDto) {

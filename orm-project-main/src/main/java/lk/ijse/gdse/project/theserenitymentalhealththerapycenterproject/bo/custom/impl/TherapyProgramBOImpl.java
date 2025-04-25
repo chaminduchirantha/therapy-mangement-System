@@ -2,7 +2,6 @@ package lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.cust
 
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.TherapyProgramBO;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dao.DAOFactory;
-import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dao.DAOTypes;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dao.custom.TherapistDAO;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dao.custom.TherapyProgramDAO;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.TherapistDTO;
@@ -15,8 +14,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class TherapyProgramBOImpl implements TherapyProgramBO {
-    TherapistDAO therapistDAO = DAOFactory.getInstance().getDAO(DAOTypes.THERAPIST);
-    TherapyProgramDAO therapyProgramDAO = DAOFactory.getInstance().getDAO(DAOTypes.PROGRAM);
+    TherapistDAO therapistDAO = (TherapistDAO) DAOFactory.getInstance().getDao(DAOFactory.daoType.THERAPIST);
+    TherapyProgramDAO therapyProgramDAO = (TherapyProgramDAO) DAOFactory.getInstance().getDao(DAOFactory.daoType.THERAPYPROGRAMME);
 
     @Override
     public boolean saveProgram(TherapyProgramDTO dto) {

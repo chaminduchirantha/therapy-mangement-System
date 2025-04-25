@@ -2,12 +2,8 @@ package lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.cust
 
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.UserBO;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dao.DAOFactory;
-import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dao.DAOTypes;
-import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dao.custom.TherapistDAO;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dao.custom.UserDAO;
-import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.TherapistDTO;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.UserDTO;
-import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.entity.Therapist;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.entity.User;
 
 import java.util.ArrayList;
@@ -16,7 +12,7 @@ import java.util.Optional;
 
 public class UserBOImpl implements UserBO {
 
-    UserDAO userDAO = DAOFactory.getInstance().getDAO(DAOTypes.USER);
+    UserDAO userDAO = (UserDAO) DAOFactory.getInstance().getDao(DAOFactory.daoType.USER);
 
 
     @Override
