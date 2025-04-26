@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -116,6 +117,9 @@
                      <effect>
                         <DropShadow color="#00000066" height="3" radius="1" width="3" />
                      </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
 
                   <Button fx:id="btnUpdate" layoutX="25.0" layoutY="80.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="38.0" prefWidth="100.0" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-background-radius: 25;" text="Update">
@@ -125,6 +129,9 @@
                      <effect>
                         <DropShadow color="#00000066" height="3" radius="1" width="3" />
                      </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
 
                   <Button fx:id="btnDelete" layoutX="25.0" layoutY="129.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefHeight="38.0" prefWidth="100.0" style="-fx-background-color: #F44336; -fx-text-fill: white; -fx-background-radius: 25;" text="Delete">
@@ -134,6 +141,9 @@
                      <effect>
                         <DropShadow color="#00000066" height="3" radius="1" width="3" />
                      </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
 
                   <Button fx:id="btnReset" layoutX="25.0" layoutY="176.0" mnemonicParsing="false" onAction="#btnResetOnAction" prefHeight="38.0" prefWidth="100.0" style="-fx-background-color: #FF9800; -fx-text-fill: white; -fx-background-radius: 25;" text="Reset">
@@ -143,6 +153,9 @@
                      <effect>
                         <DropShadow color="#00000066" height="3" radius="1" width="3" />
                      </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                </children>
             </Pane>

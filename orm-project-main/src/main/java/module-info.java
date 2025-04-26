@@ -9,6 +9,7 @@ module lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject {
     requires org.hibernate.orm.core;
     requires jakarta.persistence;
     requires java.naming;
+    requires net.sf.jasperreports.core;
 
     opens lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.config to jakarta.persistence;
     opens lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.entity to org.hibernate.orm.core;
