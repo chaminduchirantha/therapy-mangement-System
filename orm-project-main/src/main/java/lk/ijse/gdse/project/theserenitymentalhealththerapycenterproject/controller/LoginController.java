@@ -18,6 +18,7 @@ import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.User
 
 import java.io.IOException;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class LoginController {
 
@@ -39,6 +40,9 @@ public class LoginController {
     @FXML
     private Pane userNamePasswordAnchorePane;
 
+    private final Pattern passwordPattern = Pattern.compile("^.{8,}$");
+
+
     static String liveUserRole = "";
     static String liveUserId;
 
@@ -51,6 +55,18 @@ public class LoginController {
     void loginOnAction(ActionEvent event) {
         String username =txtName.getText();
         String password = txtPassword.getText();
+
+        if (username.isEmpty() || password.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Username and password are required!").show();
+//            showAlert("");
+            return;
+        }
+
+        if (!passwordPattern.matcher(password).matches()) {
+            new Alert(Alert.AlertType.ERROR, "Password must be at least 8 characters long!").show();
+            return;
+        }
+
 
         List<UserDTO> userList = userBO.getUsers();
 

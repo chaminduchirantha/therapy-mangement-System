@@ -19,7 +19,7 @@
    <children>
       <ImageView fitHeight="434.0" fitWidth="647.0" layoutX="6.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/ChatGPT%20Image%20Apr%2026,%202025,%2003_27_31%20PM.png" />
+            <Image url="@../images/login%20page%20Image%20Apr%2026,%202025,%2003_27_31%20PM.png" />
          </image>
       </ImageView>
       <Label prefHeight="68.0" prefWidth="1290.0" style="-fx-background-color: #3498db;" text="                                                                 Welcome To Login">

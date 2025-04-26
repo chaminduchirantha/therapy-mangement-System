@@ -1,5 +1,6 @@
 package lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.controller;
 
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.PatientBO;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.PaymentBO;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.RegistrationBo;
@@ -271,6 +273,14 @@ public class PaymentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        TranslateTransition slider = new TranslateTransition();
+        slider.setNode(paymentAnchorpane);
+        slider.setDuration(Duration.seconds(1.0));
+        slider.setFromX(-200);
+        slider.setToX(0);
+        slider.play();
+
         colId.setCellValueFactory(new PropertyValueFactory<>("paymentId"));
         colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         colMethod.setCellValueFactory(new PropertyValueFactory<>("method"));
