@@ -101,4 +101,21 @@ public class UserDAOImpl implements UserDAO {
                 .uniqueResult();
         return Optional.ofNullable(lastId);
     }
+
+    @Override
+    public Optional<String> getRoleById(String id) {
+        Session session = factoryConfiguration.getSession();
+        try {
+            String role = session
+                    .createQuery("SELECT u.role FROM User u WHERE u.id = :id", String.class)
+                    .setParameter("id", id)
+                    .uniqueResult();
+            return Optional.ofNullable(role);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
 }

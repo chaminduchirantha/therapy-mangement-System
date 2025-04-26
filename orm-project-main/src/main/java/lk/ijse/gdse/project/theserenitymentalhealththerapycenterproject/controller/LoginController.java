@@ -3,6 +3,7 @@ package lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.control
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -10,8 +11,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.BOFactory;
+import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.UserBO;
+import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.UserDTO;
+
+import java.io.IOException;
+import java.util.List;
 
 public class LoginController {
+
+    UserBO userBO = (UserBO) BOFactory.getInstance().getBo(BOFactory.boType.USER);
+
 
     @FXML
     private AnchorPane LoginAnchorPane;
@@ -28,6 +39,9 @@ public class LoginController {
     @FXML
     private Pane userNamePasswordAnchorePane;
 
+    static String liveUserRole = "";
+    static String liveUserId;
+
     @FXML
     void eyeHiddenPassword(MouseEvent event) {
 
@@ -35,47 +49,47 @@ public class LoginController {
 
     @FXML
     void loginOnAction(ActionEvent event) {
-        try {
-            String username = txtName.getText();
-            String password = txtPassword.getText();
+        String username =txtName.getText();
+        String password = txtPassword.getText();
 
-            txtName.setStyle(txtName.getStyle() + ";-fx-border-color: #7367F0;");
-            txtPassword.setStyle(txtPassword.getStyle() + ";-fx-border-color: #7367F0;");
+        List<UserDTO> userList = userBO.getUsers();
 
-            String namePattern = "^[A-Za-z ]+$";
-            String passwordPattern = "^[A-Za-z0-9]+$";
+        boolean found = false;
 
-            boolean isValidName = username.matches(namePattern);
-            boolean isValidPassword = password.matches(passwordPattern);
-
-            if (!isValidName) {
-                System.out.println(txtName.getStyle());
-                txtName.setStyle(txtName.getStyle() + ";-fx-border-color: red;");
-            }
-
-            if (!isValidPassword) {
-                System.out.println(txtPassword.getStyle());
-                txtPassword.setStyle(txtPassword.getStyle() + ";-fx-border-color: red;");
-            }
-
-            if (isValidName && isValidPassword) {
-                if ((username.equals("admin") && password.equals("1234")||
-                        (username.equals("user") && password.equals("1234")))){
-                    if (username.equals("admin")) {
-                        MainLayoutController.isAdmin = true;
-                    }else {
-                        MainLayoutController.isAdmin = false;
-                    }
-                    LoginAnchorPane.getChildren().clear();
-                    AnchorPane load = FXMLLoader.load(getClass().getResource("/View/MainLayout.fxml"));
-                    LoginAnchorPane.getChildren().add(load);
+        for (UserDTO user : userList) {
+            if (user.getUserName().equals(username) && user.getPassword().equals(password)) {
+                found = true;
+                if (user.getRole().equalsIgnoreCase("Admin")) {
+                    MainLayoutController.isAdmin = true;
                 } else {
-                    new Alert(Alert.AlertType.ERROR, "Invalid username or password ").show();
+                    MainLayoutController.isAdmin = false;
                 }
+                loadMainLayout();
+                break;
             }
-        } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "LoginPage Not Found").show();
+        }
+
+        if (!found) {
+            new Alert(Alert.AlertType.ERROR, "invalid password...!").show();
         }
     }
+
+    private void loadMainLayout() {
+        try {
+            Stage stage = (Stage) LoginAnchorPane.getScene().getWindow();
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/MainLayout.fxml"))));
+            stage.centerOnScreen();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+//    private void showAlert(String message) {
+//        Alert alert = new Alert(Alert.AlertType.ERROR);
+//        alert.setTitle("Login Failed");
+//        alert.setHeaderText(null);
+//        alert.setContentText(message);
+//        alert.showAndWait();
+//    }
 
 }

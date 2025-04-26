@@ -92,4 +92,10 @@ public class UserBOImpl implements UserBO {
         }
         return null;
     }
+
+    public String getUserRole(String id) {
+        Optional<String> role = userDAO.getRoleById(id);
+        return role.orElse(null);
+    }
+
 }

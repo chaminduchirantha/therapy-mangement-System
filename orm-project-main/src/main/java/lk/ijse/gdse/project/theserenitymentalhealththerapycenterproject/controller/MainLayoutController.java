@@ -5,15 +5,20 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainLayoutController implements Initializable {
+    public static String role;
     public static boolean isAdmin;
+
 
 
     @FXML
@@ -41,11 +46,20 @@ public class MainLayoutController implements Initializable {
     private Button btnUser;
 
     @FXML
+    private Button btnLogIut;
+
+    @FXML
     private AnchorPane contentPane;
+
+    @FXML
+    private AnchorPane mainAnchorPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        if (!isAdmin) {
+            btnProgram.setDisable(true);
+            btnUser.setDisable(true);
+        }
     }
 
     @FXML
@@ -129,4 +143,28 @@ public class MainLayoutController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
+    @FXML
+    void btnLogOutOnAction(ActionEvent event) {
+        try {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to Log out this Programme?", ButtonType.YES, ButtonType.NO);
+            Optional<ButtonType> optionalButtonType = alert.showAndWait();
+
+            if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
+                boolean isDeleted = true;
+                if (isDeleted) {
+                    mainAnchorPane.getChildren().clear();
+                    AnchorPane load = FXMLLoader.load(getClass().getResource("/View/LoginView.fxml"));
+                    mainAnchorPane.getChildren().add(load);
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Log out not Programme").show();
+                }
+            }
+        }catch (Exception e){
+            new Alert(Alert.AlertType.ERROR, "not found").show();
+
+        }
+
+    }
+
 }

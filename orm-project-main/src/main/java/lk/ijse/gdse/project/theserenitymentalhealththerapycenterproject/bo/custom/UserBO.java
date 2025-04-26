@@ -5,6 +5,7 @@ import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.Ther
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.UserDTO;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserBO extends SuperBO {
     boolean saveUser(UserDTO dto);
@@ -12,5 +13,6 @@ public interface UserBO extends SuperBO {
     boolean deleteUser(String id);
     String getNextUserId();
     List<UserDTO> getUsers();
+    public String getUserRole(String id) ;
     UserDTO getUserById(String id);
 }
