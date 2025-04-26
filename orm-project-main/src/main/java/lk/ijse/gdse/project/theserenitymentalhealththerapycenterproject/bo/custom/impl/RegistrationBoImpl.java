@@ -101,4 +101,20 @@ public class RegistrationBoImpl implements RegistrationBo {
     public String getNextId() throws SQLException, IOException {
        return registrationDAO.getNextId();
     }
+
+    @Override
+    public RegistrationDto getPatientById(String id){
+        Optional<Registration> registrationOn = registrationDAO.findById(id);
+        if (registrationOn.isPresent()) {
+            Registration registration = registrationOn.get();
+            return new RegistrationDto(
+                    registration.getRegistrationId(),
+                    registration.getRegistrationDate(),
+                    registration.getProgrammeFees(),
+                    registration.getPatient().getPatientId(),
+                    registration.getTherapyPrograms().getProgramId()
+            );
+        }
+        return null;
+    }
 }

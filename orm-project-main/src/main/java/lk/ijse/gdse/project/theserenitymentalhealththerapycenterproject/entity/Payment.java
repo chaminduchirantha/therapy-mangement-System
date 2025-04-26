@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,12 +18,15 @@ public class Payment implements SuperEntity {
     private String paymentId;
 
     private LocalDate paymentDate;
-    private double amount;
     private double balance;
+    private double amount;
     private String method;
 
 
     @OneToOne
     @JoinColumn(name = "registration_id")
     private Registration registration;
+
+    public Payment(String paymentId, String date, double balance, double amount, String method, Registration registration) {
+    }
 }

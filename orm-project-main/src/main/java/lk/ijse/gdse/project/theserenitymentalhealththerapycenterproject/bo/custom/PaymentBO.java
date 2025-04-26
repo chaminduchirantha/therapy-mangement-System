@@ -8,10 +8,10 @@ import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.entity.P
 import java.util.List;
 
 public interface PaymentBO extends SuperBO {
-    boolean savePayment(PaymentDTO dto);
-    boolean updatePayment(PaymentDTO dto);
-    boolean deletePayment(String id);
-    String getNextPaymentId();
+    boolean save(PaymentDTO dto);
+    boolean update(PaymentDTO dto);
+    boolean delete(String id);
+    String getNextId();
     List<PaymentDTO> getPayments();
     PaymentDTO getPaymentById(String id);
 }

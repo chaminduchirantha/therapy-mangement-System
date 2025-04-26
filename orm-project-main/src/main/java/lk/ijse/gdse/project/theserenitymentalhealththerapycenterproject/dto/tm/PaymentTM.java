@@ -11,11 +11,9 @@ import lombok.NoArgsConstructor;
 public class PaymentTM {
     private String paymentId;
     private String date;
-    private String enrollment;
-    private double cost;
-    private String patId;
-    private String patName;
+    private String method;
     private double amount;
-    private String type;
+    private double balance;
+    private String registrationID;
 
 }

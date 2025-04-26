@@ -4,18 +4,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 
 public class PaymentDTO {
     private String paymentId;
-    private String date;
-    private String enrollment;
-    private double cost;
-    private String patId;
-    private String patName;
+    private LocalDate date;
+    private String method;
     private double amount;
-    private String type;
+    private double balance;
+    private String registrationID;
+
 
 }

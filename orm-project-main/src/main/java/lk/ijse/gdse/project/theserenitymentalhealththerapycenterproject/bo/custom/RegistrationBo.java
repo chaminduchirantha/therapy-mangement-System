@@ -16,4 +16,5 @@ public interface RegistrationBo extends SuperBO {
     public Optional<Registration> findById(String s) ;
     public String getNextId() throws SQLException, IOException ;
     public List<RegistrationDto> getAll() ;
+    public RegistrationDto getPatientById(String id);
 }
