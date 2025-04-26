@@ -1,0 +1,124 @@
+<!-- Created with Jaspersoft Studio version 7.0.0.final using JasperReports Library version 7.0.0-b478feaa9aab4375eba71de77b4ca138ad2f62aa  -->
+<jasperReport name="PayementDetialReport" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5be0d4bd-3495-494e-8e8b-33e16340694d">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="therapy-centerOrm"/>
+	<query language="SQL"><![CDATA[SELECT 
+    p.paymentId,
+    p.paymentDate,
+    p.balance,
+    p.amount,
+    p.method,
+    r.registrationId,
+    r.registrationDate,
+    r.programmeFees
+FROM 
+    payments p
+INNER JOIN 
+    registration r
+ON 
+    p.registration_id = r.registrationId;
+]]></query>
+	<field name="paymentId" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="paymentId"/>
+		<property name="com.jaspersoft.studio.field.label" value="paymentId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payments"/>
+	</field>
+	<field name="paymentDate" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="paymentDate"/>
+		<property name="com.jaspersoft.studio.field.label" value="paymentDate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payments"/>
+	</field>
+	<field name="balance" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="balance"/>
+		<property name="com.jaspersoft.studio.field.label" value="balance"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payments"/>
+	</field>
+	<field name="amount" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="amount"/>
+		<property name="com.jaspersoft.studio.field.label" value="amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payments"/>
+	</field>
+	<field name="method" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="method"/>
+		<property name="com.jaspersoft.studio.field.label" value="method"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payments"/>
+	</field>
+	<field name="registrationId" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="registrationId"/>
+		<property name="com.jaspersoft.studio.field.label" value="registrationId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="registration"/>
+	</field>
+	<field name="registrationDate" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="registrationDate"/>
+		<property name="com.jaspersoft.studio.field.label" value="registrationDate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="registration"/>
+	</field>
+	<field name="programmeFees" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="programmeFees"/>
+		<property name="com.jaspersoft.studio.field.label" value="programmeFees"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="registration"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="77" splitType="Stretch">
+		<element kind="staticText" uuid="f945871f-0e8f-436c-ab26-58f03b5512db" x="202" y="27" width="150" height="36" fontSize="20.0" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Payment Detail]]></text>
+		</element>
+	</title>
+	<pageHeader height="228" splitType="Stretch">
+		<element kind="textField" uuid="7416ef90-860d-4924-8217-fa6a5fc9de96" x="443" y="45" width="160" height="30" fontSize="14.0" bold="true">
+			<expression><![CDATA[$F{registrationDate}]]></expression>
+		</element>
+		<element kind="textField" uuid="85d96a55-813e-460b-9efd-3f1bee18f2f1" x="155" y="133" width="137" height="30" fontSize="14.0" bold="true" hTextAlign="Left">
+			<expression><![CDATA[$F{method}]]></expression>
+		</element>
+		<element kind="staticText" uuid="0c19b8d7-71ee-4036-b5c0-e820c66dd131" x="-25" y="32" width="150" height="36" fontSize="16.0" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Payment Id]]></text>
+		</element>
+		<element kind="staticText" uuid="06381d08-aef8-4b8f-90e6-3042b55ca6f3" x="-16" y="76" width="150" height="36" fontSize="16.0" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Payment Date]]></text>
+		</element>
+		<element kind="staticText" uuid="7b530cd0-f964-4127-8f86-37271126586c" x="-7" y="120" width="150" height="36" fontSize="16.0" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Payment Method]]></text>
+		</element>
+		<element kind="staticText" uuid="012f6975-a265-4bc5-a58d-ed24f4fd9e57" x="266" y="163" width="123" height="36" fontSize="16.0" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Amount]]></text>
+		</element>
+		<element kind="staticText" uuid="6c67b6f4-cc6f-4341-a275-3b8091236826" x="253" y="120" width="152" height="36" fontSize="16.0" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Balance]]></text>
+		</element>
+		<element kind="staticText" uuid="45668990-db5b-4f60-b806-b4d4e094afc0" x="276" y="34" width="152" height="36" fontSize="16.0" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Registration Id]]></text>
+		</element>
+		<element kind="staticText" uuid="c2fa0293-c373-4333-b242-91c1c322d73e" x="285" y="77" width="152" height="36" fontSize="16.0" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Registration Date]]></text>
+		</element>
+		<element kind="staticText" uuid="0c375aba-5dd7-4fcc-83ad-d1bffdfd383d" x="-7" y="163" width="150" height="36" fontSize="16.0" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[programme Fees]]></text>
+		</element>
+		<element kind="textField" uuid="388103da-e3c3-47f5-9b4a-7a2e8c830b3a" x="153" y="48" width="140" height="30" fontSize="14.0" bold="true" hTextAlign="Left">
+			<expression><![CDATA[$F{paymentId}]]></expression>
+		</element>
+		<element kind="textField" uuid="e4b48d2e-b258-46b7-b3c5-fa8de04b9c7f" x="153" y="89" width="160" height="30" fontSize="14.0" bold="true" hTextAlign="Left">
+			<expression><![CDATA[$F{paymentDate}]]></expression>
+		</element>
+		<element kind="textField" uuid="338f1977-d437-49e5-9ae6-fb093d81abea" x="153" y="176" width="160" height="30" fontSize="14.0" bold="true" hTextAlign="Left">
+			<expression><![CDATA[$F{programmeFees}]]></expression>
+		</element>
+		<element kind="textField" uuid="2387a57d-f066-43c1-b3e1-8b88ee8f20de" x="443" y="88" width="138" height="30" fontSize="14.0" bold="true">
+			<expression><![CDATA[$F{registrationId}]]></expression>
+		</element>
+		<element kind="textField" uuid="5b696012-593d-4746-bcc0-e42b4b531bcc" x="443" y="135" width="125" height="30" fontSize="14.0" bold="true">
+			<expression><![CDATA[$F{balance}]]></expression>
+		</element>
+		<element kind="textField" uuid="1eba8181-ea6d-495a-8b7a-880fa17c984f" x="443" y="178" width="119" height="30" fontSize="14.0" bold="true">
+			<expression><![CDATA[$F{amount}]]></expression>
+		</element>
+	</pageHeader>
+	<columnHeader height="80" splitType="Stretch"/>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter height="45" splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch"/>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

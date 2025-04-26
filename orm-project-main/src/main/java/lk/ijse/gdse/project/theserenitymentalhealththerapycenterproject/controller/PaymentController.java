@@ -18,11 +18,20 @@ import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custo
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.impl.PaymentBOImpl;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.impl.RegistrationBoImpl;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.impl.TherapyProgramBOImpl;
+import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.config.FactoryConfiguration;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.*;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.tm.PaymentTM;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
+import org.hibernate.Session;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class PaymentController implements Initializable {
@@ -38,6 +47,9 @@ public class PaymentController implements Initializable {
 
     @FXML
     private Button btnUpdate;
+
+    @FXML
+    private Button btnSlip;
 
     @FXML
     private ComboBox<String> cmbEnrollment;
@@ -273,6 +285,41 @@ public class PaymentController implements Initializable {
             lblId.setText(paymentBO.getNextPaymentId());
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void btnSlipOnAction(ActionEvent event) {
+        PaymentTM paymentTM = tblPayment.getSelectionModel().getSelectedItem();
+        if(paymentTM == null){
+            return;
+        }
+        try {
+            JasperReport jasperReport = JasperCompileManager.compileReport(
+                    getClass()
+                            .getResourceAsStream("/report/PayementDetialReport.jrxml"
+                            ));
+
+            Session session = FactoryConfiguration.getInstance().getSession();
+            session.beginTransaction();
+
+            Connection connection = session.doReturningWork(conn -> conn);
+
+            Map<String, Object> params = new HashMap<>();
+            params.put("P_paymentId", paymentTM.getPaymentId() );
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    jasperReport,
+                    params,
+                    connection
+            );
+
+            JasperViewer.viewReport(jasperPrint, false);
+            session.getTransaction().commit();
+            session.close();
+        } catch (JRException e) {
+            new Alert(Alert.AlertType.ERROR, "Fail to generate report...!").show();
+//           e.printStackTrace();
         }
     }
 }
