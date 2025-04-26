@@ -32,7 +32,7 @@
             </Label>
 
             <!-- Left side information -->
-            <Pane layoutX="30.0" layoutY="100.0" prefHeight="275.0" prefWidth="320.0" style="-fx-background-color: #F5F5F5; -fx-background-radius: 10;">
+            <Pane layoutX="30.0" layoutY="100.0" prefHeight="275.0" prefWidth="320.0" style="-fx-background-color: #F5F5F5; -fx-background-radius: 20; -fx-border-color: #2196F3; -fx-border-radius: 20;">
                <children>
                   <Label layoutX="20.0" layoutY="15.0" prefHeight="38.0" prefWidth="100.0" style="-fx-text-fill: #37474F;" text="Registration ID">
                      <font>
@@ -73,7 +73,7 @@
             </Pane>
 
             <!-- Right side information -->
-            <Pane layoutX="370.0" layoutY="100.0" prefHeight="275.0" prefWidth="320.0" style="-fx-background-color: #F5F5F5; -fx-background-radius: 10;">
+            <Pane layoutX="370.0" layoutY="100.0" prefHeight="275.0" prefWidth="320.0" style="-fx-background-color: #F5F5F5; -fx-background-radius: 20; -fx-border-color: #2196F3; -fx-border-radius: 20;">
                <children>
                   <Label layoutX="20.0" layoutY="28.0" prefHeight="38.0" prefWidth="110.0" style="-fx-text-fill: #37474F;" text="Program:">
                      <font>
@@ -107,7 +107,7 @@
             </Pane>
 
             <!-- Action buttons -->
-            <Pane layoutX="710.0" layoutY="100.0" prefHeight="275.0" prefWidth="150.0" style="-fx-background-color: #F5F5F5; -fx-background-radius: 10;">
+            <Pane layoutX="710.0" layoutY="100.0" prefHeight="275.0" prefWidth="150.0" style="-fx-background-color: #F5F5F5; -fx-background-radius: 20; -fx-border-color: #2196F3; -fx-border-radius: 20;">
                <children>
                   <Button fx:id="btnSave" layoutX="25.0" layoutY="30.0" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="38.0" prefWidth="100.0" style="-fx-background-color: green; -fx-text-fill: white; -fx-background-radius: 25;" text="Save">
                      <font>

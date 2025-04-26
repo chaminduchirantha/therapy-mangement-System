@@ -1,10 +1,12 @@
 package lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.controller;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -17,8 +19,10 @@ import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custo
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.impl.RegistrationBoImpl;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.bo.custom.impl.TherapyProgramBOImpl;
 import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.*;
+import lk.ijse.gdse.project.theserenitymentalhealththerapycenterproject.dto.tm.PaymentTM;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class PaymentController implements Initializable {
@@ -75,7 +79,7 @@ public class PaymentController implements Initializable {
     private AnchorPane paymentAnchorpane;
 
     @FXML
-    private TableView<?> tblPayment;
+    private TableView<PaymentTM> tblPayment;
 
     @FXML
     private TextField txtAmount;
@@ -87,67 +91,156 @@ public class PaymentController implements Initializable {
     private ImageView user;
 
     PaymentBO paymentBO = new PaymentBOImpl();
-    RegistrationBo registrationBo = new RegistrationBoImpl();
-    PatientBO patientBO = new PatientBOImpl();
-    TherapyProgramBO therapyProgramBO = new TherapyProgramBOImpl();
-
-    @FXML
-    void btnDeleteOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnResetOnAction(ActionEvent event) {
-
-    }
 
     @FXML
     void btnSaveOnAction(ActionEvent event) {
-        PaymentDTO paymentDTO = new PaymentDTO(
-                lblId.getText(),
-                datePicker.getValue(),
-                cmbMethod.getValue(),
-                Double.parseDouble(txtAmount.getText()),
-                Double.parseDouble(txtBalance.getText()),
-                cmbEnrollment.getValue()
-        );
-        if (paymentBO.save(paymentDTO)) {
-            showSuccessAlert("Registration Successfully.");
-//            refreshPage();
-        } else {
-            showErrorAlert("Registration failed.");
+        try {
+            PaymentDTO paymentDTO = new PaymentDTO(
+                    lblId.getText(),
+                    datePicker.getValue(),
+                    cmbMethod.getValue(),
+                    Double.parseDouble(txtAmount.getText()),
+                    Double.parseDouble(txtBalance.getText()),
+                    cmbEnrollment.getValue()
+            );
+
+            if (paymentBO.save(paymentDTO)) {
+                showSuccessAlert("Payment saved successfully.");
+                refreshPage();
+            } else {
+                showErrorAlert("Failed to save payment.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            showErrorAlert("Error while saving payment: " + e.getMessage());
         }
     }
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
+        try {
+            PaymentDTO paymentDTO = new PaymentDTO(
+                    lblId.getText(),
+                    datePicker.getValue(),
+                    cmbMethod.getValue(),
+                    Double.parseDouble(txtAmount.getText()),
+                    Double.parseDouble(txtBalance.getText()),
+                    cmbEnrollment.getValue()
+            );
 
+            if (paymentBO.update(paymentDTO)) {
+                showSuccessAlert("Payment updated successfully.");
+                refreshPage();
+            } else {
+                showErrorAlert("Failed to update payment.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            showErrorAlert("Error while updating payment: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    void btnDeleteOnAction(ActionEvent event) {
+        try {
+            String paymentId = lblId.getText();
+            if (paymentBO.delete(paymentId)) {
+                showSuccessAlert("Payment deleted successfully.");
+                refreshPage();
+            } else {
+                showErrorAlert("Failed to delete payment.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            showErrorAlert("Error while deleting payment: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    void btnResetOnAction(ActionEvent event) {
+        clearFields();
     }
 
     @FXML
     void cmbEnrollmentOnAction(ActionEvent event) {
-        if (cmbEnrollment.getValue() == null) return;
+        String registrationId = cmbEnrollment.getValue();
+        if (registrationId == null) return;
 
-        RegistrationDto registrationDto = registrationBo.getPatientById(cmbEnrollment.getValue());
-        System.out.println(registrationDto);
-        lblPatientId.setText(registrationDto != null ? registrationDto.getPatientId() : "Unknown");
-        lblProgrammeId.setText(registrationDto != null ? registrationDto.getProgrammeId() : "Unknown");
+        RegistrationDto registrationDto = paymentBO.getRegistration()
+                .stream()
+                .filter(dto -> dto.getRegistrationId().equals(registrationId))
+                .findFirst()
+                .orElse(null);
+
+        if (registrationDto != null) {
+            lblPatientId.setText(registrationDto.getPatientId());
+            lblProgrammeId.setText(String.valueOf(registrationDto.getProgrammeFees()));
+        }
     }
 
     @FXML
     void onClickTable(MouseEvent event) {
-
+        PaymentTM selected = tblPayment.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            lblId.setText(selected.getPaymentId());
+            datePicker.setValue(selected.getDate());
+            cmbMethod.setValue(selected.getMethod());
+            txtAmount.setText(String.valueOf(selected.getAmount()));
+            txtBalance.setText(String.valueOf(selected.getBalance()));
+            cmbEnrollment.setValue(selected.getRegistrationID());
+        }
     }
 
-    private void loadComboData() throws Exception {
-        cmbEnrollment.setItems(FXCollections.observableArrayList(
-                patientBO.getPatients().stream().map(PatientDTO::getPatientId).toList()
-        ));
+    private void loadComboData() {
+        List<RegistrationDto> registrations = paymentBO.getRegistration();
+        ObservableList<String> regIds = FXCollections.observableArrayList();
+        for (RegistrationDto dto : registrations) {
+            regIds.add(dto.getRegistrationId());
+        }
+        cmbEnrollment.setItems(regIds);
+    }
 
-        cmbEnrollment.setItems(FXCollections.observableArrayList(
-                therapyProgramBO.getPrograms().stream().map(TherapyProgramDTO::getProgramId).toList()
-        ));
+    private void loadMethods() {
+        cmbMethod.setItems(FXCollections.observableArrayList("Card Payment", "Cash Payment"));
+    }
 
+    private void loadPaymentsToTable() {
+        List<PaymentDTO> paymentDTOList = paymentBO.getPayments();
+        ObservableList<PaymentTM> paymentTMs = FXCollections.observableArrayList();
+
+        for (PaymentDTO dto : paymentDTOList) {
+            paymentTMs.add(new PaymentTM(
+                    dto.getPaymentId(),
+                    dto.getDate(),
+                    dto.getMethod(),
+                    dto.getAmount(),
+                    dto.getBalance(),
+                    dto.getRegistrationID()
+            ));
+        }
+
+        tblPayment.setItems(paymentTMs);
+    }
+
+    private void refreshPage() {
+        clearFields();
+        loadPaymentsToTable();
+        try {
+            lblId.setText(paymentBO.getNextPaymentId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void clearFields() {
+        lblId.setText("");
+        datePicker.setValue(null);
+        cmbMethod.setValue(null);
+        txtAmount.clear();
+        txtBalance.clear();
+        cmbEnrollment.setValue(null);
+        lblPatientId.setText("");
+        lblProgrammeId.setText("");
     }
 
     private void showSuccessAlert(String message) {
@@ -164,18 +257,22 @@ public class PaymentController implements Initializable {
         alert.showAndWait();
     }
 
-    private void loadMethod(){
-        String[] method = {"Card Payment" , "Cash payment"};
-        cmbMethod.getItems().addAll(method);
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try{
-           loadComboData();
-           loadMethod();
-        }catch (Exception e){
+        colId.setCellValueFactory(new PropertyValueFactory<>("paymentId"));
+        colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        colMethod.setCellValueFactory(new PropertyValueFactory<>("method"));
+        colAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        colBalance.setCellValueFactory(new PropertyValueFactory<>("balance"));
+        colRegistrationId.setCellValueFactory(new PropertyValueFactory<>("registrationID"));
 
+        try {
+            loadComboData();
+            loadMethods();
+            loadPaymentsToTable();
+            lblId.setText(paymentBO.getNextPaymentId());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
